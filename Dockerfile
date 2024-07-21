@@ -1,4 +1,4 @@
-python:3.12-slim
+From python:3.12-slim
 
 RUN pip install --upgrade pip && pip install poetry
 
