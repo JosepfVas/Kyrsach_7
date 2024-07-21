@@ -8,6 +8,7 @@ from habits.models import Habit
 
 
 class HabitTestCase(APITestCase):
+    """ Тесты на CRUD привычек """
 
     def setUp(self):
         self.user = User.objects.create(email="test@example.com", password="test")
@@ -25,6 +26,8 @@ class HabitTestCase(APITestCase):
         self.client.force_authenticate(user=self.user)
 
     def test_habit_create(self):
+        """ Тест на создание """
+
         url = reverse("habits:habit_create")
         data = {
             "owner": self.user.id,
@@ -44,16 +47,22 @@ class HabitTestCase(APITestCase):
         self.assertEqual(Habit.objects.all().count(), 2)
 
     def test_habit_list(self):
+        """ Вывод списка привычек """
+
         url = reverse("habits:habit_list")
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_habit_retrieve(self):
+        """ Вывод одной привычки """
+
         url = reverse("habits:habit_retrieve", kwargs={"pk": self.habit.id})
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_habit_update(self):
+        """ Апдейт привычки """
+
         url = reverse("habits:habit_update", kwargs={"pk": self.habit.id})
         data = {"place": "На улице"}
         response = self.client.patch(url)
@@ -62,12 +71,16 @@ class HabitTestCase(APITestCase):
         self.assertEqual(data.get("place"), "На улице")
 
     def test_habit_delete(self):
+        """ Удаление привычки """
+
         url = reverse("habits:habit_delete", kwargs={"pk": self.habit.id})
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Habit.objects.all().count(), 0)
 
     def test_habit_time(self):
+        """ Тест на время привычки больше 2х минут"""
+
         url = reverse("habits:habit_create")
         data = {
             "owner": self.user.id,
@@ -86,6 +99,7 @@ class HabitTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_habit_periodic_8(self):
+        """ Тест на периодичность """
         url = reverse("habits:habit_create")
         data = {
             "owner": self.user.id,
@@ -104,6 +118,8 @@ class HabitTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_habit_periodic_zero(self):
+        """ Тест на периодичность равной нулю """
+
         url = reverse("habits:habit_create")
         data = {
             "owner": self.user.id,

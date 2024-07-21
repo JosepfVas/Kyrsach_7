@@ -28,7 +28,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -51,12 +51,12 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -151,25 +151,24 @@ REST_FRAMEWORK = {
     ],
 }
 
-# CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")
-# CELERY_TIMEZONE = os.getenv('TIME_ZONE')
-# CELERY_ACCEPT_CONTENT = ['json']
-# CELERY_TASK_SERIALIZER = 'json'
-# CELERY_RESULT_SERIALIZER = 'json'
-# CELERY_TASK_TRACK_STARTED = True
-# CELERY_TASK_TIME_LIMIT = 30 * 60
-# CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND")
-# CELERY_BEAT_SCHEDULE = {
-#     "TelegramBot": {
-#         "task": "habits.tasks.send_message_to_tg_bot",
-#         "schedule": timedelta(seconds=10),
-#     },
-# }
-# broker_connection_retry_on_startup = True
+CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")
+CELERY_TIMEZONE = os.getenv('TIME_ZONE')
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND")
+CELERY_BEAT_SCHEDULE = {
+    "TelegramBot": {
+        "task": "habits.tasks.send_message_to_tg_bot",
+        "schedule": timedelta(seconds=10),
+    },
+}
+broker_connection_retry_on_startup = True
 
 TELEGRAM_BOT_API_KEY = os.getenv("TELEGRAM_BOT_API_KEY")
 TELEGRAM_URL = os.getenv("TELEGRAM_URL")
-
 
 CORS_ALLOWED_ORIGINS = [
     "https://read-only.example.com",

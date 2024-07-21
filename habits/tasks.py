@@ -1,11 +1,12 @@
 from django.utils import timezone
-from datetime import datetime, timedelta
+from datetime import timedelta
 from habits.models import Habit
 from habits.service import send_telegram_message
 
 
 def send_message_to_tg_bot():
     """Функция отправки уведомления о привычке"""
+
     habits = Habit.objects.all()
     now = timezone.localtime(
         timezone.now()
