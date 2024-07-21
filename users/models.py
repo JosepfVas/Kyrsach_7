@@ -5,6 +5,8 @@ NULLABLE = {"blank": True, "null": True}
 
 
 class User(AbstractUser):
+    """ Модель пользователя """
+
     STATUS_SELECTION = ((True, "Действующий"), (False, "Заблокирован"))
 
     username = None

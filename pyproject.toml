@@ -8,10 +8,8 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.12"
 django = "^5.0.7"
-celery = "^5.4.0"
 python-dotenv = "^1.0.1"
 djangorestframework = "^3.15.2"
-psycopg2 = "^2.9.9"
 pillow = "^10.4.0"
 drf-yasg = "^1.21.7"
 django-celery-beat = "^2.6.0"
@@ -21,8 +19,9 @@ setuptools = "^70.3.0"
 django-filter = "^24.2"
 requests = "^2.32.3"
 django-cors-headers = "^4.4.0"
-flake8 = "^7.1.0"
 black = "^24.4.2"
+psycopg2-binary = "^2.9.9"
+celery = "^5.4.0"
 
 
 
